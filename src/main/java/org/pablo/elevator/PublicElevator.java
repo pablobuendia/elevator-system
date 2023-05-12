@@ -3,6 +3,10 @@ package org.pablo.elevator;
 import java.util.List;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
+import org.pablo.exceptions.NegativeWeightException;
+import org.pablo.exceptions.ShutoffElevatorMechanismException;
+import org.pablo.exceptions.StoreNotFoundException;
+import org.pablo.exceptions.UnauthorizedKeycardException;
 
 @Getter
 @Slf4j
@@ -21,13 +25,13 @@ public class PublicElevator {
 
   public void moveTo(final Integer nextStore) {
     if (nextStore >= STORES || nextStore < 0) {
-      throw new RuntimeException("Invalid input: store does not exist");
+      throw new StoreNotFoundException();
     }
     if (protectedStores.contains(nextStore) && !authorized) {
-      throw new RuntimeException("Unauthorized: keycard system invalid or inexistent");
+      throw new UnauthorizedKeycardException();
     }
     if (weightExceededShutoffMechanism) {
-      throw new RuntimeException("Forbidden: Cannot move while weight limit is exceeded");
+      throw new ShutoffElevatorMechanismException();
     }
 
     log.info("Moving to store {}...", nextStore);
@@ -46,7 +50,7 @@ public class PublicElevator {
 
   public void removeWeight(Double weight) {
     if (currentWeight - weight < 0) {
-      throw new RuntimeException("Invalid input: Weight to remove is more than weight load");
+      throw new NegativeWeightException();
     }
     currentWeight -= weight;
     if (weightExceededShutoffMechanism && currentWeight < WEIGHT_LIMIT) {
