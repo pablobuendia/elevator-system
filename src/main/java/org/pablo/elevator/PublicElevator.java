@@ -2,6 +2,7 @@ package org.pablo.elevator;
 
 import java.util.List;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.pablo.exceptions.NegativeWeightException;
 import org.pablo.exceptions.ShutoffElevatorMechanismException;
@@ -10,6 +11,7 @@ import org.pablo.exceptions.UnauthorizedKeycardException;
 
 @Getter
 @Slf4j
+@NoArgsConstructor
 public class PublicElevator {
 
   public static final Double WEIGHT_LIMIT = 1000.0;
@@ -41,6 +43,7 @@ public class PublicElevator {
 
   public void addWeight(Double weight) {
     currentWeight += weight;
+    log.info("Current weight: {}", currentWeight);
     if (currentWeight >= WEIGHT_LIMIT) {
       weightExceededShutoffMechanism = true;
       log.warn("Weight Limit Exceeded!");
@@ -53,6 +56,7 @@ public class PublicElevator {
       throw new NegativeWeightException();
     }
     currentWeight -= weight;
+    log.info("Current weight: {}", currentWeight);
     if (weightExceededShutoffMechanism && currentWeight < WEIGHT_LIMIT) {
       weightExceededShutoffMechanism = false;
       log.info("Weight is normal again. Elevator can move normally.");
