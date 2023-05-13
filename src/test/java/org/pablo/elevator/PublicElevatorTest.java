@@ -2,6 +2,7 @@ package org.pablo.elevator;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -39,7 +40,22 @@ class PublicElevatorTest {
   }
 
   @Test
-  void removeWeightWhenItsZero() {
+  void addWeightExceedLimit() {
+    publicElevator.addWeight(10000.0);
+    assertEquals(10000.0, publicElevator.getCurrentWeight());
+    assertTrue(publicElevator.isWeightExceededShutoffMechanism());
+  }
+
+  @Test
+  void removeWeight() {
+    publicElevator.addWeight(500.0);
+    publicElevator.removeWeight(100.0);
+    assertEquals(400.0, publicElevator.getCurrentWeight());
+  }
+
+  @Test
+  void removeWeightNegativeWeightException() {
     assertThrows(RuntimeException.class, () -> publicElevator.removeWeight(100.0));
   }
+
 }
