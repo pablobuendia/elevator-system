@@ -42,6 +42,9 @@ public class PublicElevator {
   }
 
   public void addWeight(Double weight) {
+    if (weight < 0) {
+      throw new NegativeWeightException();
+    }
     currentWeight += weight;
     log.info("Current weight: {}", currentWeight);
     if (currentWeight >= WEIGHT_LIMIT) {
@@ -52,6 +55,9 @@ public class PublicElevator {
   }
 
   public void removeWeight(Double weight) {
+    if (weight < 0) {
+      throw new NegativeWeightException();
+    }
     if (currentWeight - weight < 0) {
       throw new NegativeWeightException();
     }
