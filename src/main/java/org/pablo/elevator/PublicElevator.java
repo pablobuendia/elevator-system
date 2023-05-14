@@ -12,7 +12,7 @@ import org.pablo.exceptions.UnauthorizedKeycardException;
 @Getter
 @Slf4j
 @NoArgsConstructor
-public class PublicElevator {
+public class PublicElevator implements Elevator {
 
   public static final Double WEIGHT_LIMIT = 1000.0;
 
@@ -25,6 +25,7 @@ public class PublicElevator {
   private boolean authorized = false;
   private boolean weightExceededShutoffMechanism = false;
 
+  @Override
   public void moveTo(final Integer nextStore) {
     if (nextStore >= STORES || nextStore < 0) {
       throw new StoreNotFoundException();
@@ -41,6 +42,7 @@ public class PublicElevator {
     log.info("Store {} reached", currentStore);
   }
 
+  @Override
   public void addWeight(Double weight) {
     if (weight < 0) {
       throw new NegativeWeightException();
@@ -54,6 +56,7 @@ public class PublicElevator {
     }
   }
 
+  @Override
   public void removeWeight(Double weight) {
     if (weight < 0) {
       throw new NegativeWeightException();
@@ -67,5 +70,10 @@ public class PublicElevator {
       weightExceededShutoffMechanism = false;
       log.info("Weight is normal again. Elevator can move normally.");
     }
+  }
+
+  @Override
+  public Double getWeightLimit() {
+    return WEIGHT_LIMIT;
   }
 }
