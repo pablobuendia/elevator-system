@@ -9,7 +9,16 @@ import org.pablo.elevator.PublicElevator;
 @Slf4j
 public class ElevatorSystem {
 
-  public ElevatorSystem() {
+  private final static ElevatorSystem INSTANCE = new ElevatorSystem();
+
+  private ElevatorSystem() {
+  }
+
+  public static ElevatorSystem getInstance() {
+    return INSTANCE;
+  }
+
+  public void start() {
     PublicElevator publicElevator = new PublicElevator();
     FreightElevator freightElevator = new FreightElevator();
     System.out.println("Elevator system is running");
