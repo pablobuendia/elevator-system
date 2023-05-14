@@ -16,8 +16,6 @@ public class PublicElevator implements Elevator {
 
   public static final Double WEIGHT_LIMIT = 1000.0;
 
-  private static final Integer STORES = 51;
-  private static final Integer BASEMENTS = 1;
   private static final List<Integer> protectedStores = List.of(0,50);
 
   private Integer currentStore = 1;

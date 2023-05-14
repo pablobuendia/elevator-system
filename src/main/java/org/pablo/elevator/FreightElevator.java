@@ -16,9 +16,6 @@ public class FreightElevator implements Elevator {
   private Integer currentStore = 1;
   private boolean weightExceededShutoffMechanism = false;
 
-  private static final Integer STORES = 51;
-  private static final Integer BASEMENTS = 1;
-
   @Override
   public void moveTo(final Integer store) {
     if (store < 0 || store > STORES) {
