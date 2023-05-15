@@ -1,13 +1,20 @@
 package org.pablo;
 
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Scanner;
+import java.util.Set;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import org.pablo.elevator.FreightElevator;
 import org.pablo.elevator.PublicElevator;
+import org.pablo.keycard.Keycard;
 
 @Slf4j
 public class ElevatorSystem {
+
+  private final HashMap<Integer, Keycard> keycards = new HashMap<>();
 
   private final static ElevatorSystem INSTANCE = new ElevatorSystem();
 
@@ -39,7 +46,11 @@ public class ElevatorSystem {
       log.info("1. Move to a store");
       log.info("2. Add weight");
       log.info("3. Remove weight");
-      log.info("4. Exit");
+      log.info("4. Create a new keycard");
+      if (option == 1) {
+        log.info("5. Authorize keycard");
+      }
+      log.info("9. Exit");
 
       option = scanner.nextInt();
 
@@ -72,6 +83,22 @@ public class ElevatorSystem {
           }
           break;
         case 4:
+          log.info("Creating a new keycard...");
+          val keycard = new Keycard();
+          keycards.put(keycard.getKeycardId(), keycard);
+          log.info("Keycard {} created", keycard.getKeycardId());
+          break;
+        case 5:
+          log.info("Enter the keycard id");
+          int keycardId = scanner.nextInt();
+          if (keycards.containsKey(keycardId)) {
+            log.info("Keycard {} authorized", keycardId);
+            publicElevator.authorizeKeycard(keycards.get(keycardId));
+          } else {
+            log.info("Keycard {} not found", keycardId);
+          }
+          break;
+        case 9:
           log.info("Exiting...");
           break;
         default:
@@ -80,7 +107,7 @@ public class ElevatorSystem {
       }
       log.info("Choose a new option");
 
-    } while (option != 4);
+    } while (option != 5);
 
     scanner.close();
 

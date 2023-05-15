@@ -4,7 +4,6 @@ public interface Elevator {
   Integer STORES = 51;
   Integer BASEMENTS = 1;
 
-
   void moveTo(Integer nextStore);
 
   void addWeight(Double weight);

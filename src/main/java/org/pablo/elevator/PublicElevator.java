@@ -8,6 +8,7 @@ import org.pablo.exceptions.NegativeWeightException;
 import org.pablo.exceptions.ShutoffElevatorMechanismException;
 import org.pablo.exceptions.StoreNotFoundException;
 import org.pablo.exceptions.UnauthorizedKeycardException;
+import org.pablo.keycard.Keycard;
 
 @Getter
 @Slf4j
@@ -38,6 +39,8 @@ public class PublicElevator implements Elevator {
     log.info("Moving to store {}...", nextStore);
     currentStore = nextStore;
     log.info("Store {} reached", currentStore);
+
+    authorized = false;
   }
 
   @Override
@@ -73,5 +76,16 @@ public class PublicElevator implements Elevator {
   @Override
   public Double getWeightLimit() {
     return WEIGHT_LIMIT;
+  }
+
+
+  public void authorizeKeycard(Keycard keycard) {
+    if (keycard != null) {
+      authorized = true;
+    }
+    else {
+      log.warn("Invalid keycard");
+      authorized = false;
+    }
   }
 }
