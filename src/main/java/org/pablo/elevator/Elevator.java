@@ -1,10 +1,11 @@
 package org.pablo.elevator;
 
+import java.util.List;
 import org.pablo.keycard.Keycard;
 
 public interface Elevator {
   Integer STORES = 51;
-  Integer BASEMENTS = 1;
+  List<Integer> BASEMENTS = List.of(0);
 
   void moveTo(Integer nextStore);
 

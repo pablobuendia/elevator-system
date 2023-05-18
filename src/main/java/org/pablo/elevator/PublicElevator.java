@@ -35,10 +35,17 @@ public class PublicElevator implements Elevator {
     if (weightExceededShutoffMechanism) {
       throw new ShutoffElevatorMechanismException();
     }
+    if (currentStore.equals(nextStore)) {
+      log.info("Already in store {}", nextStore);
+      return;
+    }
 
     log.info("\n\nMoving to store {}...", nextStore);
     currentStore = nextStore;
     log.info("Store {} reached\n\n", currentStore);
+    if (Elevator.BASEMENTS.contains(currentStore)) {
+      log.info("Elevator is in basement");
+    }
 
     authorized = false;
   }

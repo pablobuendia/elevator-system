@@ -57,5 +57,4 @@ class PublicElevatorTest {
   void removeWeightNegativeWeightException() {
     assertThrows(RuntimeException.class, () -> publicElevator.removeWeight(100.0));
   }
-
 }

@@ -86,4 +86,14 @@ class FreightElevatorTest {
     freightElevator.removeWeight(3000.0);
     assertFalse(freightElevator.isWeightExceededShutoffMechanism());
   }
+
+  @Test
+  void isAuthorized() {
+    assertTrue(freightElevator.isAuthorized());
+  }
+
+  @Test
+  void getWeightLimit() {
+    assertEquals(3000.0, freightElevator.getWeightLimit());
+  }
 }

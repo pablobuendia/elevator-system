@@ -17,13 +17,20 @@ public class FreightElevator implements Elevator {
   private boolean weightExceededShutoffMechanism = false;
 
   @Override
-  public void moveTo(final Integer store) {
-    if (store < 0 || store > STORES) {
+  public void moveTo(final Integer nextStore) {
+    if (nextStore < 0 || nextStore > STORES) {
       throw new StoreNotFoundException();
     }
-    log.info("Moving to store {}...", store);
-    currentStore = store;
+    if (currentStore.equals(nextStore)) {
+      log.info("Already in store {}", nextStore);
+      return;
+    }
+    log.info("Moving to store {}...", nextStore);
+    currentStore = nextStore;
     log.info("Store {} reached", currentStore);
+    if (Elevator.BASEMENTS.contains(currentStore)) {
+      log.info("Elevator is in basement");
+    }
   }
 
   @Override
