@@ -63,6 +63,6 @@ public class FreightElevator implements Elevator {
 
   @Override
   public Double getWeightLimit() {
-    return Double.valueOf(WEIGHT_LIMIT);
+    return WEIGHT_LIMIT;
   }
 }

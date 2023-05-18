@@ -36,9 +36,9 @@ public class PublicElevator implements Elevator {
       throw new ShutoffElevatorMechanismException();
     }
 
-    log.info("Moving to store {}...", nextStore);
+    log.info("\n\nMoving to store {}...", nextStore);
     currentStore = nextStore;
-    log.info("Store {} reached", currentStore);
+    log.info("Store {} reached\n\n", currentStore);
 
     authorized = false;
   }
@@ -79,6 +79,7 @@ public class PublicElevator implements Elevator {
   }
 
 
+  @Override
   public void authorizeKeycard(Keycard keycard) {
     if (keycard != null) {
       authorized = true;
